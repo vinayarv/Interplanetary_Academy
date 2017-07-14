@@ -17,7 +17,7 @@ console.log(Campus, Student, User);
 const campuses = [
   {name: 'Mercury', imageUrl: 'https://www.universetoday.com/wp-content/uploads/2009/08/Mercury-e1418849404713-580x350.jpg', credits: 'https://www.universetoday.com/38068/pictures-of-the-planets/'},
   {name: 'Venus', imageUrl: 'https://www.universetoday.com/wp-content/uploads/2008/10/Venus-580x580.jpg', credits: 'https://www.universetoday.com/38068/pictures-of-the-planets/'},
-  // {name: 'Earth', imageUrl: 'https://www.universetoday.com/wp-content/uploads/2009/08/Earth_apollo11-580x365.jpg', credits: 'https://www.universetoday.com/38068/pictures-of-the-planets/'},
+  {name: 'Earth', imageUrl: 'https://www.universetoday.com/wp-content/uploads/2009/08/Earth_apollo11-580x365.jpg', credits: 'https://www.universetoday.com/38068/pictures-of-the-planets/'},
   // {name: 'Mars', imageUrl: 'https://www.universetoday.com/wp-content/uploads/2014/10/True-colour_image_of_Mars_seen_by_OSIRIS-580x580.jpg', credits: 'https://www.universetoday.com/38068/pictures-of-the-planets/'},
   // {name: 'Jupiter', imageUrl: 'https://www.universetoday.com/wp-content/uploads/2014/10/Jupiter_eye-e1414524396756-580x475.jpg', credits: 'https://www.universetoday.com/38068/pictures-of-the-planets/'},
   // {name: 'Saturn', imageUrl: 'https://www.universetoday.com/wp-content/uploads/2013/10/saturn_20131010-e1417854764439-580x395.jpg', credits: 'https://www.universetoday.com/38068/pictures-of-the-planets/'},

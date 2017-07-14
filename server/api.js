@@ -19,13 +19,33 @@ api.get('/campuses', (req, res, next) => {
 
 api.get('/campus/:id', (req, res, next) => {
 	Campus.findById(req.params.id)
-	.then(campus => res.send(campus))
+	.then(campus => campus.id)
+	.then(id => {
+		return Student.findAll({
+			where: {
+				campusId: req.params.id
+			}
+		})
+	})
+	.then(students => {
+		res.send(students);
+	})
 	.catch(next);
 });
 
 api.get('/students', (req, res, next) => {
-	Student.findAll()
-	.then(allStudents => res.send(allStudents))
+	Student.findAll({
+		include: [ {
+			model: Campus
+		}]
+	})
+	.then(allStudents => {
+		const response = allStudents.map(student => {
+			var campus = student.campus.name ? student.campus.name : 'No Campus';
+			 return Object.assign({}, {id: student.id, name: student.name, email: student.email, campus: campus});
+		});
+		res.send(response);
+	})
 	.catch(next);
 });
 
@@ -68,12 +88,7 @@ api.post('/students', (req, res, next) => {
 });
 
 api.put('/student/:id', (req, res, next) => {
-	console.log("name", req.body.name, "email", req.body.email);
-	/*
-			name: req.body.name,
-		email: req.body.email,
-		campusId: req.body.campusId
-	*/
+
 	Student.update(req.body,
 	{
 		where: {
@@ -98,10 +113,18 @@ api.put('/campus/:id', (req, res, next) => {
 });
 
 api.delete('/campus/:id', (req, res, next) => {
-	Campus.destroy({
+	Student.destroy({
 		where: {
-			id: req.params.id
+			campusId: req.params.id
 		}
+	})
+	.then( (affectedRows) => {
+		console.log('Deleted ' + affectedRows + ' row from students belonging to campus ' + req.params.id);
+		Campus.destroy({
+			where: {
+				id: req.params.id
+			}
+		})
 	})
 	.then((affectedRows) => console.log('Deleted ' + affectedRows + ' row from campuses table with id= ' + req.params.id))
 	.catch(next);
@@ -114,6 +137,7 @@ api.delete('/student/:id', (req, res, next) => {
 		}
 	})
 	.then( affectedRows => console.log('Deleted ' + affectedRows + ' rows from students table with id= ' + req.params.id))
+	.catch(next);
 })
 
 module.exports = api
